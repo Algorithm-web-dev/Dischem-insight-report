@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dis-Chem · Insight Report · October 2026</title>
+<style>
+  :root {
+    --green:#006B3C; --green-dark:#004D2B; --green-light:#00A65A; --green-pale:#E8F4EE;
+    --white:#FFFFFF; --off-white:#F5F8F6; --charcoal:#1A2E22; --slate:#2D4A38;
+    --gray:#6B7B72; --gray-light:#DDE8E2; --red:#C0392B; --red-pale:#FCECEA;
+    --amber:#D4820A; --amber-pale:#FEF6E6; --teal:#00838A; --teal-pale:#E6F4F5;
+    --radius:8px; --radius-lg:14px; --shadow:0 2px 12px rgba(0,0,0,0.07);
+  }
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:'Segoe UI',Arial,sans-serif;background:var(--off-white);color:var(--charcoal);line-height:1.6;font-size:15px}
+  .container{max-width:1140px;margin:0 auto;padding:0 24px}
+  .section{padding:56px 0}
+  .section--white{background:var(--white)}
+  .section--green{background:var(--green);color:var(--white)}
+
+  .header{background:var(--green-dark);position:sticky;top:0;z-index:100;box-shadow:0 2px 16px rgba(0,0,0,.25)}
+  .header-inner{display:flex;align-items:center;justify-content:space-between;padding:14px 24px;max-width:1140px;margin:0 auto;gap:16px}
+  .header-brand{display:flex;align-items:center;gap:14px}
+  .header-logo{width:36px;height:36px;background:var(--green-light);border-radius:6px;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:14px;color:#fff}
+  .header-title{color:#fff;font-size:14px;font-weight:600}
+  .header-sub{color:#A9D9BE;font-size:12px}
+  .header-tag{background:var(--green-light);color:#fff;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:5px 12px;border-radius:20px;white-space:nowrap}
+
+  .hero{background:linear-gradient(135deg,var(--green-dark),var(--green));color:#fff;padding:64px 0 56px}
+  .eyebrow{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#A9D9BE;font-weight:700;margin-bottom:12px}
+  .hero h1{font-size:38px;line-height:1.15;margin-bottom:14px;max-width:820px}
+  .hero p.lead{font-size:17px;color:#D6EDE0;max-width:780px}
+  .kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:36px}
+  .kpi{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);border-radius:var(--radius-lg);padding:22px}
+  .kpi .v{font-size:34px;font-weight:800;line-height:1.1}
+  .kpi .l{font-size:13px;color:#D6EDE0;margin-top:6px}
+  .kpi .s{font-size:12px;color:#A9D9BE;margin-top:8px}
+
+  h2{font-size:26px;color:var(--green-dark);margin-bottom:6px}
+  .section--green h2{color:#fff}
+  .kicker{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--green);font-weight:700;margin-bottom:6px}
+  .section--green .kicker{color:#A9D9BE}
+  .sub{color:var(--gray);max-width:780px;margin-bottom:28px}
+  h3{font-size:17px;color:var(--slate);margin:26px 0 10px}
+
+  .card{background:#fff;border:1px solid var(--gray-light);border-radius:var(--radius-lg);padding:22px;box-shadow:var(--shadow)}
+  .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+  .grid2{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+  .finding .n{width:30px;height:30px;border-radius:50%;background:var(--green);color:#fff;font-weight:800;display:flex;align-items:center;justify-content:center;margin-bottom:12px}
+  .finding h4{font-size:16px;margin-bottom:6px;color:var(--green-dark)}
+  .finding p{font-size:14px;color:#3b4f43}
+
+  table{width:100%;border-collapse:collapse;background:#fff;border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);font-size:14px}
+  th{background:var(--green-dark);color:#fff;text-align:left;padding:11px 14px;font-size:12px;letter-spacing:.04em;text-transform:uppercase}
+  td{padding:11px 14px;border-bottom:1px solid var(--gray-light)}
+  tr:last-child td{border-bottom:none}
+  td.pos{color:var(--green);font-weight:700} td.neg{color:var(--red);font-weight:700} td.flat{color:var(--gray);font-weight:700}
+  .tablewrap{overflow-x:auto}
+  .src{font-size:12px;color:var(--gray);margin-top:8px}
+
+  .callout{border-radius:var(--radius);padding:16px 18px;margin:18px 0;border-left:5px solid var(--green);background:var(--green-pale);font-size:14px}
+  .callout strong{display:block;margin-bottom:4px}
+  .callout--amber{border-color:var(--amber);background:var(--amber-pale)}
+  .callout--red{border-color:var(--red);background:var(--red-pale)}
+  .callout--teal{border-color:var(--teal);background:var(--teal-pale)}
+
+  .legend{display:flex;gap:18px;font-size:13px;color:var(--gray);margin:6px 0 10px}
+  .legend i{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:6px;vertical-align:-1px}
+  .bar-row{display:grid;grid-template-columns:230px 1fr;gap:14px;align-items:center;margin:12px 0}
+  .bar-label{font-size:13px;font-weight:600;color:var(--slate)}
+  .bar-wrap{display:flex;flex-direction:column;gap:4px}
+  .bar{height:20px;border-radius:4px;display:flex;align-items:center;min-width:46px}
+  .bar span{font-size:12px;font-weight:700;padding-left:8px;color:#fff}
+  .bar-b{background:#9AA9A0} .bar-a{background:var(--green)}
+
+  .pill{display:inline-block;font-size:11px;font-weight:800;letter-spacing:.06em;padding:3px 10px;border-radius:20px;margin-bottom:10px}
+  .p1{background:var(--red-pale);color:var(--red)} .p2{background:var(--amber-pale);color:var(--amber)} .p3{background:var(--teal-pale);color:var(--teal)}
+  .rec h4{font-size:16px;margin-bottom:6px;color:var(--green-dark)}
+  .rec p{font-size:14px;color:#3b4f43;margin-bottom:8px}
+  .rec .why{font-size:12.5px;color:var(--gray)}
+
+  .phases{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+  .phase{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:var(--radius-lg);padding:22px}
+  .phase h4{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:#A9D9BE;margin-bottom:8px}
+  .phase li{margin:6px 0 6px 18px;font-size:14px}
+
+  .footer{background:var(--charcoal);color:#B7C7BE;padding:32px 0;font-size:13px}
+  .footer strong{color:#fff}
+
+  @media(max-width:860px){
+    .kpis,.grid3,.grid2,.phases{grid-template-columns:1fr}
+    .hero h1{font-size:28px}
+    .bar-row{grid-template-columns:1fr;gap:4px}
+    .header-sub{display:none}
+  }
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="header-inner">
+    <div class="header-brand">
+      <div class="header-logo">DC</div>
+      <div><div class="header-title">Dis-Chem Pharmacies</div><div class="header-sub">Performance Insight Report · October 2026</div></div>
+    </div>
+    <div class="header-tag">Insight Report</div>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="container">
+    <div class="eyebrow">Insight Report · 18 Aug – 21 Oct 2026</div>
+    <h1>Sales are up 23% and the mobile checkout fix is working, but a surge of low-converting Paid Social traffic is hiding it in the site averages.</h1>
+    <p class="lead">We compared the 65 days since the last report with the 65 days before it. On mobile, more checkout starters now complete a purchase, and revenue per session rose 20–27% in Cross-network, Direct and Organic Search. Promotions also helped, so we cannot credit the fix alone. Paid Social sessions more than doubled and barely convert, so the site-wide average moved only +1.8%.</p>
+    <div class="kpis">
+      <div class="kpi"><div class="v">R59.4M</div><div class="l">Revenue, 18 Aug – 21 Oct</div><div class="s">+22.9% vs R48.3M in the 65 days before</div></div>
+      <div class="kpi"><div class="v">36.9% → 40.9%</div><div class="l">Mobile begin checkout → purchase</div><div class="s">+4.0 pts, the conservative whole-journey figure</div></div>
+      <div class="kpi"><div class="v">0.5%</div><div class="l">Share of revenue from Paid Social</div><div class="s">It is 11.4% of sessions (6.5% before)</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- EXEC SUMMARY -->
+<section class="section">
+  <div class="container">
+    <div class="kicker">Executive summary</div>
+    <h2>Three things to take into the room</h2>
+    <p class="sub">All figures come from Dis-Chem's GA4 property. The “before” window is 14 Jun – 17 Aug 2026 and the “after” window is 18 Aug – 21 Oct 2026, 65 days each, starting where the last report's data ended.</p>
+    <div class="grid3">
+      <div class="card finding"><div class="n">1</div><h4>The mobile checkout fix is working</h4><p>Mobile begin checkout → purchase is up +4.0 pts (36.9% to 40.9%). Weekly data shows a lasting step change from the week of 23 Aug, and mobile revenue per week is up +33% against +19% on desktop. Desktop is not confirmed: its whole-journey rate slipped (62.3% to 58.1%).</p></div>
+      <div class="card finding"><div class="n">2</div><h4>The average hides two stories</h4><p>Revenue per session is up only +1.8% overall (R4.65 to R4.73). It rose +20% in Cross-network, +22% in Direct and +27% in Organic Search, and by +7.4% excluding Paid Social. Without the promotion weeks, the daily revenue lift is +10.6%.</p></div>
+      <div class="card finding"><div class="n">3</div><h4>Paid Social doubled and barely converts</h4><p>Paid Social sessions per day are up +111%. It is now 11.4% of sessions but 0.5% of revenue, and its purchase rate is 0.03% against 0.78% for Direct. The share of users who view a product fell from 54.6% to 49.4%, which fits this shift. This is why overall conversion looks flat even though checkout improved.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- PERFORMANCE -->
+<section class="section section--white">
+  <div class="container">
+    <div class="kicker">Performance</div>
+    <h2>Before vs after</h2>
+    <p class="sub">Same length, same report definitions, same property.</p>
+    <div class="tablewrap"><table>
+      <tr><th>Metric</th><th>Before<br>14 Jun – 17 Aug</th><th>After<br>18 Aug – 21 Oct</th><th>Change</th></tr>
+      <tr><td>Total revenue</td><td>R48.3M</td><td>R59.4M</td><td class="pos">+22.9%</td></tr>
+      <tr><td>Average revenue per day</td><td>R743K</td><td>R913K</td><td class="pos">+22.9%</td></tr>
+      <tr><td>Median daily revenue</td><td>R730K</td><td>R789K</td><td class="pos">+8.0%</td></tr>
+      <tr><td>Average daily revenue excluding 25 Aug – 14 Sep promo stretch</td><td>R743K</td><td>R822K</td><td class="pos">+10.6%</td></tr>
+      <tr><td>Users (session start)</td><td>7.17M</td><td>8.79M</td><td class="pos">+22.6%</td></tr>
+      <tr><td>Revenue per user</td><td>R6.73</td><td>R6.75</td><td class="flat">+0.2%</td></tr>
+      <tr><td>Revenue per session (channel export)</td><td>R4.65</td><td>R4.73</td><td class="flat">+1.8%</td></tr>
+      <tr><td>Users to purchase (overall)</td><td>0.61%</td><td>0.59%</td><td class="flat">flat</td></tr>
+      <tr><td>Daily purchasers, summed</td><td>57,147</td><td>67,275</td><td class="pos">+17.7%</td></tr>
+      <tr><td>Revenue per daily purchaser (order value proxy)</td><td>R845</td><td>R883</td><td class="pos">+4.4%</td></tr>
+      <tr><td>First-time purchasers, share of daily purchasers</td><td>67.2%</td><td>68.1%</td><td class="flat">flat</td></tr>
+    </table></div>
+    <p class="src">Source: GA4 Monetization overview and Purchase journey (device category). Daily purchasers are summed from daily unique counts, so repeat buyers appear more than once. Revenue per daily purchaser is a proxy for order value, not true average order value.</p>
+
+    <div class="callout callout--amber"><strong>Fix or promotion? The two overlap</strong>GA4 places the mobile checkout fix in the week of 23 Aug. The 25 Aug – 14 Sep promotion started two days later, so revenue growth in that stretch cannot be split between the two. Two views reduce the overlap. Excluding the promotion stretch, average daily revenue is up +10.6% (against +22.9% overall). The last 28 days, after the promotion ended, averaged R859K a day. That is +15.6% against the before window (R743K a day), even with the 4–10 Oct dip included, and below the promotion-heavy first 28 days (R1,017K). The conversion gains in the weekly checkout data held after the promotion ended, which points to a real fix effect. The rand value of the fix alone is not provable from this data, so we quote the range, not a single figure.</div>
+
+    <h3>Revenue and orders by device</h3>
+    <p class="sub" style="margin-bottom:12px">Weekly averages: 10 weeks before (14 Jun – 22 Aug) against 8 weeks after (23 Aug – 17 Oct), split at the estimated fix week. Revenue is purchase revenue, and order value is revenue ÷ transactions.</p>
+    <div class="tablewrap"><table>
+      <tr><th>Device</th><th>Revenue per week, before</th><th>After</th><th>Change</th><th>Orders per week</th><th>Change</th><th>Order value</th><th>Change</th><th>Users</th></tr>
+      <tr><td>Mobile</td><td>R3.15M</td><td>R4.20M</td><td class="pos">+33.5%</td><td>4,297 → 5,364</td><td class="pos">+24.8%</td><td>R732 → R783</td><td class="pos">+6.9%</td><td>+28.7%</td></tr><tr><td>Desktop</td><td>R1.99M</td><td>R2.37M</td><td class="pos">+19.3%</td><td>1,917 → 2,218</td><td class="pos">+15.7%</td><td>R1,037 → R1,069</td><td class="pos">+3.1%</td><td>+9.7%</td></tr><tr><td>Tablet</td><td>R0.04M</td><td>R0.06M</td><td class="pos">+30.1%</td><td>41 → 50</td><td class="pos">+23.2%</td><td>R1,060 → R1,120</td><td class="pos">+5.6%</td><td>+22.9%</td></tr><tr><td><strong>All devices</strong></td><td><strong>R5.18M</strong></td><td><strong>R6.63M</strong></td><td class="pos"><strong>+28.0%</strong></td><td>6,255 → 7,632</td><td class="pos">+22.0%</td><td>R828 → R868</td><td class="pos">+4.9%</td><td>+24.6%</td></tr>
+    </table></div>
+    <p class="src">Source: GA4 free-form exploration, device category by week, purchase revenue and transactions. The partial week from 18 Oct is excluded. Smart TV is negligible and left out. These weekly figures split at the estimated fix week (23 Aug), so they differ from the 65-day totals above (revenue +22.9%), which split at 18 Aug.</p>
+    <div class="grid2" style="margin-top:16px">
+      <div class="callout"><strong>Mobile grew fastest</strong>Mobile revenue per week is up +33% against +19% on desktop, and its share of revenue moved from 61% to 63%. Mobile orders are up +25% and order value is up +7%. Most of this growth comes from more mobile traffic and includes the promotion weeks, so it is consistent with the fix helping but does not prove its size.</div>
+      <div class="callout callout--amber"><strong>But mobile traffic grew faster than orders</strong>Mobile users are up +29%, so orders per 1,000 mobile users slipped from 5.76 to 5.58. Desktop users grew +10% and desktop orders per 1,000 users moved from 9.27 to 9.77. This fits the Paid Social finding: extra, lower-intent mobile traffic dilutes the average, while the checkout fix lifts the share of checkout starters who buy.</div>
+    </div>
+
+    <h3>Daily revenue, day by day</h3>
+    <div class="legend"><span><i style="background:#9AA9A0"></i>Before (14 Jun – 17 Aug)</span><span><i style="background:#006B3C"></i>After (18 Aug – 21 Oct)</span></div>
+    <div class="card"><svg viewBox="0 0 1040 300" role="img" aria-label="Daily revenue, before vs after" style="width:100%;height:auto"><line x1="56" x2="1024" y1="266.0" y2="266.0" stroke="#DDE8E2" stroke-width="1"/><text x="48" y="270.0" text-anchor="end" font-size="11" fill="#6B7B72">R0M</text><line x1="56" x2="1024" y1="203.5" y2="203.5" stroke="#DDE8E2" stroke-width="1"/><text x="48" y="207.5" text-anchor="end" font-size="11" fill="#6B7B72">R1M</text><line x1="56" x2="1024" y1="141.0" y2="141.0" stroke="#DDE8E2" stroke-width="1"/><text x="48" y="145.0" text-anchor="end" font-size="11" fill="#6B7B72">R2M</text><line x1="56" x2="1024" y1="78.5" y2="78.5" stroke="#DDE8E2" stroke-width="1"/><text x="48" y="82.5" text-anchor="end" font-size="11" fill="#6B7B72">R3M</text><line x1="56" x2="1024" y1="16.0" y2="16.0" stroke="#DDE8E2" stroke-width="1"/><text x="48" y="20.0" text-anchor="end" font-size="11" fill="#6B7B72">R4M</text><text x="56.0" y="290" text-anchor="middle" font-size="11" fill="#6B7B72">Day 1</text><text x="267.8" y="290" text-anchor="middle" font-size="11" fill="#6B7B72">Day 15</text><text x="479.5" y="290" text-anchor="middle" font-size="11" fill="#6B7B72">Day 29</text><text x="691.2" y="290" text-anchor="middle" font-size="11" fill="#6B7B72">Day 43</text><text x="903.0" y="290" text-anchor="middle" font-size="11" fill="#6B7B72">Day 57</text><text x="1024.0" y="290" text-anchor="middle" font-size="11" fill="#6B7B72">Day 65</text><rect x="161.9" y="16" width="302.5" height="250" fill="#FEF6E6" opacity="0.85"/><text x="313.1" y="30" text-anchor="middle" font-size="11" fill="#D4820A">Promo stretch (25 Aug – 14 Sep)</text><rect x="766.9" y="16" width="90.8" height="250" fill="#FCECEA" opacity="0.9"/><text x="812.2" y="30" text-anchor="middle" font-size="11" fill="#C0392B">4–10 Oct dip</text><polyline fill="none" stroke="#9AA9A0" stroke-width="2" stroke-linejoin="round" points="56.0,229.3 71.1,186.2 86.2,227.8 101.4,220.8 116.5,230.9 131.6,229.6 146.8,237.9 161.9,232.8 177.0,214.7 192.1,224.3 207.2,231.8 222.4,211.6 237.5,210.2 252.6,212.9 267.8,209.9 282.9,204.5 298.0,204.5 313.1,202.6 328.2,218.0 343.4,228.0 358.5,231.4 373.6,226.2 388.8,212.8 403.9,214.3 419.0,220.3 434.1,223.0 449.2,231.1 464.4,240.8 479.5,226.9 494.6,228.4 509.8,218.1 524.9,175.7 540.0,226.5 555.1,231.6 570.2,241.8 585.4,234.5 600.5,221.2 615.6,218.0 630.8,224.1 645.9,225.0 661.0,212.0 676.1,216.6 691.2,216.4 706.4,194.5 721.5,202.9 736.6,208.4 751.8,213.7 766.9,220.3 782.0,223.7 797.1,209.8 812.2,209.1 827.4,211.7 842.5,217.8 857.6,222.0 872.8,229.7 887.9,239.5 903.0,234.4 918.1,235.3 933.2,217.6 948.4,220.0 963.5,224.7 978.6,217.4 993.8,190.6 1008.9,227.8 1024.0,215.3"/><polyline fill="none" stroke="#006B3C" stroke-width="2.5" stroke-linejoin="round" points="56.0,220.3 71.1,220.4 86.2,212.8 101.4,224.4 116.5,235.7 131.6,218.7 146.8,200.2 161.9,166.5 177.0,182.7 192.1,189.7 207.2,198.6 222.4,211.1 237.5,193.2 252.6,171.5 267.8,40.1 282.9,191.2 298.0,202.2 313.1,229.6 328.2,227.4 343.4,216.7 358.5,201.5 373.6,206.7 388.8,209.7 403.9,218.1 419.0,224.6 434.1,229.4 449.2,206.9 464.4,218.3 479.5,159.1 494.6,223.0 509.8,226.3 524.9,232.0 540.0,235.9 555.1,228.0 570.2,215.9 585.4,221.6 600.5,224.4 615.6,228.2 630.8,155.7 645.9,195.2 661.0,144.6 676.1,201.9 691.2,209.6 706.4,203.5 721.5,212.1 736.6,220.0 751.8,232.8 766.9,216.5 782.0,203.0 797.1,215.4 812.2,213.7 827.4,226.3 842.5,236.3 857.6,239.8 872.8,227.9 887.9,212.3 903.0,217.3 918.1,221.5 933.2,163.6 948.4,229.1 963.5,235.9 978.6,221.3 993.8,226.3 1008.9,212.7 1024.0,221.9"/></svg></div>
+    <p class="src">Source: GA4 Monetization overview, total revenue by day. Both lines are aligned by day number (Day 1 = 14 Jun and 18 Aug).</p>
+
+    <div class="grid2" style="margin-top:20px">
+      <div class="card"><h3 style="margin-top:0">Weekly revenue, after window</h3>
+        <div class="tablewrap"><table><tr><th>Week</th><th>Revenue</th><th>Per day</th></tr><tr><td>18 Aug – 24 Aug</td><td>R5.27M</td><td>R753K</td></tr><tr><td>25 Aug – 31 Aug</td><td>R8.78M</td><td>R1,254K</td></tr><tr><td>01 Sep – 07 Sep</td><td>R8.85M</td><td>R1,265K</td></tr><tr><td>08 Sep – 14 Sep</td><td>R5.57M</td><td>R796K</td></tr><tr><td>15 Sep – 21 Sep</td><td>R5.47M</td><td>R781K</td></tr><tr><td>22 Sep – 28 Sep</td><td>R7.84M</td><td>R1,120K</td></tr><tr><td>29 Sep – 05 Oct</td><td>R5.83M</td><td>R833K</td></tr><tr><td>06 Oct – 12 Oct</td><td>R4.65M</td><td>R664K</td></tr><tr><td>13 Oct – 19 Oct</td><td>R5.55M</td><td>R793K</td></tr></table></div>
+        <p class="src">Weeks run from 18 Aug in 7-day blocks.</p></div>
+      <div class="card"><h3 style="margin-top:0">What stands out</h3>
+        <div class="callout callout--amber"><strong>The promotion weeks lift the headline</strong>Revenue peaked at R3.6M on 01 Sep. The first 28 days averaged R1,017K a day and the last 28 averaged R859K (-15.5%).</div>
+        <div class="callout callout--red"><strong>The 4–10 Oct dip</strong>Revenue fell -28.9% against the previous week (R4.98M vs R7.00M), which matches the anomaly GA4 flagged. The lowest day was 10 Oct at R419K.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FUNNEL -->
+<section class="section">
+  <div class="container">
+    <div class="kicker">Customer journey</div>
+    <h2>Where users move forward, and where they stop</h2>
+    <p class="sub">Two GA4 views of the same period. The purchase journey covers the whole site visit. The checkout journey covers the steps inside checkout.</p>
+
+    <h3>Whole journey, all devices</h3>
+    <div class="tablewrap"><table><tr><th>Step</th><th>Before</th><th>After</th><th>Change</th></tr><tr><td>Session start → view product</td><td>54.6%</td><td>49.4%</td><td class="neg">-5.2 pts</td></tr><tr><td>View product → add to cart</td><td>7.7%</td><td>7.7%</td><td class="flat">-0.0 pts</td></tr><tr><td>Add to cart → begin checkout</td><td>34.3%</td><td>34.7%</td><td class="pos">+0.5 pts</td></tr><tr><td>Begin checkout → purchase</td><td>42.3%</td><td>44.7%</td><td class="pos">+2.4 pts</td></tr><tr><td>Session start → purchase (overall)</td><td>0.61%</td><td>0.59%</td><td class="flat">-0.02 pts</td></tr></table></div>
+
+    <h3>Whole journey, mobile (77% of users)</h3>
+    <div class="tablewrap"><table><tr><th>Step</th><th>Before</th><th>After</th><th>Change</th></tr><tr><td>Session start → view product</td><td>52.7%</td><td>48.5%</td><td class="neg">-4.2 pts</td></tr><tr><td>View product → add to cart</td><td>8.7%</td><td>8.3%</td><td class="neg">-0.4 pts</td></tr><tr><td>Add to cart → begin checkout</td><td>33.4%</td><td>33.3%</td><td class="neg">-0.1 pts</td></tr><tr><td>Begin checkout → purchase</td><td>36.9%</td><td>40.9%</td><td class="pos">+4.0 pts</td></tr><tr><td>Session start → purchase (overall)</td><td>0.56%</td><td>0.55%</td><td class="flat">-0.02 pts</td></tr></table></div>
+    <p class="src">Source: GA4 Purchase journey, device category, user counts. Mobile was 75% of users before and 77% after.</p>
+
+    <h3>Inside checkout: mobile</h3>
+    <div class="legend"><span><i style="background:#9AA9A0"></i>Before</span><span><i style="background:#006B3C"></i>After</span></div>
+    <div class="card"><div class="bar-row"><div class="bar-label">Begin checkout → add shipping</div><div class="bar-wrap"><div class="bar bar-b" style="width:69.8%"><span>69.8%</span></div><div class="bar bar-a" style="width:72.6%"><span>72.6%</span></div></div></div><div class="bar-row"><div class="bar-label">Add shipping → add payment</div><div class="bar-wrap"><div class="bar bar-b" style="width:50.7%"><span>50.7%</span></div><div class="bar bar-a" style="width:54.3%"><span>54.3%</span></div></div></div><div class="bar-row"><div class="bar-label">Add payment → purchase</div><div class="bar-wrap"><div class="bar bar-b" style="width:76.1%"><span>76.1%</span></div><div class="bar bar-a" style="width:90.8%"><span>90.8%</span></div></div></div><div class="bar-row"><div class="bar-label">Begin checkout → purchase</div><div class="bar-wrap"><div class="bar bar-b" style="width:26.9%"><span>26.9%</span></div><div class="bar bar-a" style="width:35.8%"><span>35.8%</span></div></div></div></div>
+
+    <h3>Inside checkout: desktop</h3>
+    <div class="card"><div class="bar-row"><div class="bar-label">Begin checkout → add shipping</div><div class="bar-wrap"><div class="bar bar-b" style="width:85.5%"><span>85.5%</span></div><div class="bar bar-a" style="width:81.1%"><span>81.1%</span></div></div></div><div class="bar-row"><div class="bar-label">Add shipping → add payment</div><div class="bar-wrap"><div class="bar bar-b" style="width:73.0%"><span>73.0%</span></div><div class="bar bar-a" style="width:70.8%"><span>70.8%</span></div></div></div><div class="bar-row"><div class="bar-label">Add payment → purchase</div><div class="bar-wrap"><div class="bar bar-b" style="width:74.0%"><span>74.0%</span></div><div class="bar bar-a" style="width:95.7%"><span>95.7%</span></div></div></div><div class="bar-row"><div class="bar-label">Begin checkout → purchase</div><div class="bar-wrap"><div class="bar bar-b" style="width:46.2%"><span>46.2%</span></div><div class="bar bar-a" style="width:54.9%"><span>54.9%</span></div></div></div></div>
+    <p class="src">Source: GA4 Checkout journey, device category. Mobile purchasers in this view went from 26,136 to 37,673 (+44%).</p>
+
+    <div class="callout"><strong>Read this carefully before quoting the checkout numbers</strong>The two views disagree about the size of the gain. On the whole-journey view, mobile begin checkout → purchase went from 36.9% to 40.9%. On the step-by-step view it went from 26.9% to 35.8%. The checkout journey counted 37,196 purchasers before against 43,754 on the purchase journey, and the two now agree (52,975 and 51,935). Part of the jump in the step view is probably shipping and payment events being recorded properly now. The conservative figure is the improvement on the whole-journey view. The same applies to desktop: its step view shows a gain, but the whole-journey view shows begin checkout → purchase slipping (62.3% to 58.1%), so we do not claim a desktop improvement. In the weekly data, add payment users and purchase users are almost identical, so the payment → purchase step is the least reliable number here. We rely on shipping → payment and begin checkout → purchase.</div>
+    <div class="callout callout--amber"><strong>Shipping → payment is still the biggest drop</strong>About 46% of mobile users who add shipping do not reach payment. This is now the largest remaining loss inside checkout, and it is sized in the CRO Report.</div>
+  </div>
+</section>
+
+<!-- TRAFFIC -->
+<section class="section section--white">
+  <div class="container">
+    <div class="kicker">Traffic and channels</div>
+    <h2>Who is arriving, and what they are worth</h2>
+    <p class="sub">The extra traffic is real, but it is arriving through very different doors. Figures are per day so the two windows compare fairly.</p>
+    <div class="tablewrap"><table>
+      <tr><th>Channel</th><th>Sessions / day<br>before</th><th>Sessions / day<br>after</th><th>Change</th><th>Revenue / day<br>before</th><th>Revenue / day<br>after</th><th>Change</th><th>Revenue per session</th><th>Purchase rate<br>(after)</th></tr>
+      <tr><td>Cross-network</td><td>38,696</td><td>44,372</td><td class="pos">+15%</td><td>R211K</td><td>R290K</td><td class="pos">+37%</td><td>R5.45 → R6.53</td><td>0.78%</td></tr><tr><td>Direct</td><td>30,625</td><td>35,614</td><td class="pos">+16%</td><td>R182K</td><td>R259K</td><td class="pos">+42%</td><td>R5.95 → R7.28</td><td>0.78%</td></tr><tr><td>Organic Search</td><td>36,071</td><td>41,366</td><td class="pos">+15%</td><td>R119K</td><td>R173K</td><td class="pos">+45%</td><td>R3.30 → R4.18</td><td>0.54%</td></tr><tr><td>Paid Search</td><td>17,020</td><td>14,897</td><td class="neg">-12%</td><td>R150K</td><td>R96K</td><td class="neg">-36%</td><td>R8.84 → R6.47</td><td>0.78%</td></tr><tr><td>Unassigned</td><td>7,429</td><td>9,112</td><td class="pos">+23%</td><td>R31K</td><td>R42K</td><td class="pos">+35%</td><td>R4.21 → R4.64</td><td>0.39%</td></tr><tr><td>Referral</td><td>7,814</td><td>6,587</td><td class="neg">-16%</td><td>R32K</td><td>R17K</td><td class="neg">-48%</td><td>R4.08 → R2.52</td><td>0.28%</td></tr><tr><td>Paid Other</td><td>4,814</td><td>7,427</td><td class="pos">+54%</td><td>R5K</td><td>R9K</td><td class="pos">+102%</td><td>R0.95 → R1.24</td><td>0.16%</td></tr><tr><td>Paid Social</td><td>10,394</td><td>21,967</td><td class="pos">+111%</td><td>R4K</td><td>R5K</td><td class="pos">+32%</td><td>R0.35 → R0.22</td><td>0.03%</td></tr><tr><td>Organic Social</td><td>4,827</td><td>8,192</td><td class="pos">+70%</td><td>R2K</td><td>R3K</td><td class="pos">+44%</td><td>R0.44 → R0.38</td><td>0.05%</td></tr><tr><td>Organic Shopping</td><td>531</td><td>996</td><td class="pos">+87%</td><td>R1K</td><td>R8K</td><td class="pos">+519%</td><td>R2.30 → R7.59</td><td>0.68%</td></tr><tr><td>All other channels</td><td>1,650</td><td>2,506</td><td class="pos">+52%</td><td>R6K</td><td>R12K</td><td class="pos">+100%</td><td>R3.49 → R4.61</td><td>0.46%</td></tr><tr style="font-weight:700;background:#E8F4EE"><td>Total</td><td>159,871</td><td>193,036</td><td class="pos">+21%</td><td>R743K</td><td>R913K</td><td class="pos">+23%</td><td>R4.65 → R4.73</td><td>0.55%</td></tr>
+    </table></div>
+    <p class="src">Source: GA4 Traffic acquisition, session primary channel group. Before is 14 Jun – 18 Aug (66 days) and after is 18 Aug – 21 Oct (65 days), shown per day. Purchase rate is ecommerce purchases divided by sessions and is only available for the after window. Totals are the sum of the channel rows.</p>
+
+    <div class="grid2" style="margin-top:20px">
+      <div class="callout callout--teal"><strong>The strong channels improved</strong>Revenue per session rose +20% in Cross-network, +22% in Direct and +27% in Organic Search. These make up about 63% of sessions, and the improvement fits a better checkout experience. The promotion stretch (25 Aug – 14 Sep) also lifted these channels, so we cannot credit the fix alone.</div>
+      <div class="callout callout--amber"><strong>Paid Social dilutes the average</strong>Sessions per day are up +111% and it is now 11.4% of sessions but 0.5% of revenue. Its purchase rate is 0.03% against 0.78% for Direct, and revenue per session fell from R0.35 to R0.22. Organic Social behaves the same way (4.2% of sessions, 0.05% purchase rate). Last-click numbers understate the role social plays in discovery, so this needs cost data before any conclusion.</div>
+    </div>
+
+    <h3>Promotion banner views, after vs before</h3>
+    <div class="tablewrap"><table>
+      <tr><th>Banner</th><th>Before</th><th>After</th><th>Change</th></tr>
+      <tr><td>Homepage hero slider</td><td>5.56M</td><td>4.57M</td><td class="neg">-17.9%</td></tr>
+      <tr><td>Health Clinic 2025</td><td>226.7K</td><td>251.8K</td><td class="pos">+11.1%</td></tr>
+      <tr><td>Personal Care slider</td><td>154.4K</td><td>192.0K</td><td class="pos">+24.3%</td></tr>
+      <tr><td>La Roche-Posay</td><td>59.9K</td><td>81.0K</td><td class="pos">+35.1%</td></tr>
+      <tr><td>Baby and child category</td><td>53.1K</td><td>81.6K</td><td class="pos">+53.6%</td></tr>
+      <tr><td>Shop Category slider</td><td>21.3K</td><td>81.3K</td><td class="pos">+281.6%</td></tr>
+    </table></div>
+    <p class="src">Source: GA4 Monetization overview, “Items viewed in promotion”. Users grew about 23% over the same period.</p>
+    <div class="callout callout--teal"><strong>What this suggests</strong>Hero banner views fell about 18% while users rose about 23%. More visitors seem to land deeper in the site and skip the homepage, which fits the Paid Social growth and the fall in product views. We should test that before acting on it.</div>
+    <div class="callout callout--red"><strong>Organic Shopping visibility is being lost</strong>GA4 reports 902 products are not appearing on Google Search because of an “Invalid sale price” error in the Merchant Center account. This is a free-traffic leak and it is separate from checkout.</div>
+  </div>
+</section>
+
+<!-- RECOMMENDATIONS -->
+<section class="section">
+  <div class="container">
+    <div class="kicker">Recommendations</div>
+    <h2>What we'd do first</h2>
+    <p class="sub">These are the diagnostic and acquisition actions that come out of the data. Conversion optimisation work is in the CRO Report.</p>
+    <div class="grid3">
+      <div class="card rec"><span class="pill p1">P1</span><h4>Fix the 902 Merchant Center products</h4><p>Correct the “Invalid sale price” configuration so the products return to Google Search and Shopping.</p><div class="why">Why: free traffic is being lost now, and the fix is contained.</div></div>
+      <div class="card rec"><span class="pill p1">P1</span><h4>Validate checkout event tracking</h4><p>Confirm shipping, payment and purchase events fire consistently on every device and in both periods.</p><div class="why">Why: the two checkout views disagree, so the size of the improvement is not certain until this is confirmed.</div></div>
+      <div class="card rec"><span class="pill p3">P3</span><h4>Scope a repeat-purchase workstream</h4><p>About two in three daily purchasers are first-time buyers. Treat retention as a separate CRM and lifecycle workstream.</p><div class="why">Why: the loyalty opportunity is large, but it needs separate CRM data.</div></div>
+    </div>
+    <div class="callout callout--teal" style="margin-top:22px"><strong>Optimisation items are in the October CRO Report</strong>The mobile shipping step, the cart-to-checkout step, landing and entry-point tests and the remaining payment-step loss are sized, ranked and planned in the CRO Report. This report only covers what happened, why, and the data we still need.</div>
+  </div>
+</section>
+
+<!-- ROADMAP -->
+<section class="section section--green">
+  <div class="container">
+    <div class="kicker">Roadmap</div>
+    <h2>Next steps</h2>
+    <p class="sub" style="color:#D6EDE0">Dis-Chem's team will decide what to prioritise. This is the order we suggest.</p>
+    <div class="phases">
+      <div class="phase"><h4>Now · next 2 weeks</h4><ul><li>Fix the Merchant Center sale price errors</li><li>Validate checkout events in GA4</li></ul></div>
+      <div class="phase"><h4>Next · before Black Friday</h4><ul><li>Landing page review for Paid Social traffic</li><li>Hand the findings to the CRO test plan</li><li>Re-cut the comparison at the week of 23 Aug once Dis-Chem confirms the fix date</li></ul></div>
+      <div class="phase"><h4>Then · after Black Friday</h4><ul><li>Repeat the before/after on the Black Friday window (27 Nov)</li><li>Scope the retention and post-purchase workstream</li><li>Quarterly performance view with a clean baseline</li></ul></div>
+    </div>
+  </div>
+</section>
+
+<!-- LIMITS -->
+<section class="section section--white">
+  <div class="container">
+    <div class="kicker">Open data points</div>
+    <h2>What this report does not yet show</h2>
+    <div class="grid2" style="margin-top:18px">
+      <div class="card"><p><strong>The fix date is estimated, not confirmed.</strong> Weekly GA4 data places it in the week of 23 Aug, five days after our 18 Aug split, so the windows are close to clean.</p></div>
+      <div class="card"><p><strong>Revenue by device is by week, not by day.</strong> It is split at whole GA4 weeks, so the windows are 10 and 8 weeks and the figures are weekly averages that do not match the 65-day totals above exactly.</p></div>
+      <div class="card"><p><strong>Promotions and seasonality.</strong> The after window includes the 25 Aug – 14 Sep promotion stretch and the 4–10 Oct dip, which are not the same as the before window.</p></div>
+      <div class="card"><p><strong>Channel data has limits.</strong> The channel windows differ by one day (66 and 65 days, so we compare per day), purchase rate by channel is only available for the after window, and there is no ad spend, so efficiency cannot be judged yet.</p></div>
+      <div class="card"><p><strong>No session recordings in this report.</strong> The behavioural evidence from Clarity has not been refreshed since the last report.</p></div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div style="margin-bottom:8px"><strong>Dis-Chem Pharmacies · Insight Report · October 2026</strong></div>
+    <div>Prepared by <strong>Algorithm Agency</strong> · Data source: Google Analytics 4 · Windows: 14 Jun – 17 Aug 2026 (before) and 18 Aug – 21 Oct 2026 (after)</div>
+  </div>
+</footer>
+
+</body>
+</html>
